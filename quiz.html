@@ -1,0 +1,56 @@
+<!-- html/quiz.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HVAC Quiz</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-100">
+    <div class="min-h-screen p-6">
+        <!-- Quiz Header -->
+        <div class="bg-white rounded-lg shadow-sm p-4 mb-6">
+            <div class="flex justify-between items-center">
+                <h1 class="text-2xl font-bold" id="quizTitle">Quiz Title</h1>
+                <div class="flex items-center space-x-4">
+                    <div class="text-lg font-semibold" id="timer">Time: 15:00</div>
+                    <div class="text-lg font-semibold" id="progress">Question 1/10</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question Card -->
+        <div class="bg-white rounded-lg shadow-sm p-6 mb-6">
+            <div class="space-y-6">
+                <div id="questionText" class="text-lg font-medium"></div>
+                
+                <div id="options" class="space-y-3">
+                    <!-- Options will be dynamically inserted here -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Navigation Buttons -->
+        <div class="flex justify-between">
+            <button id="prevButton" class="bg-gray-600 text-white px-6 py-2 rounded hover:bg-gray-700 disabled:opacity-50">Previous</button>
+            <button id="nextButton" class="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700">Next</button>
+        </div>
+
+        <!-- Results Modal (hidden by default) -->
+        <div id="resultsModal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center hidden">
+            <div class="bg-white rounded-lg p-8 max-w-md w-full">
+                <h2 class="text-2xl font-bold mb-4">Quiz Results</h2>
+                <div id="resultsContent" class="space-y-4">
+                    <!-- Results will be dynamically inserted here -->
+                </div>
+                <div class="mt-6 flex justify-end space-x-4">
+                    <button id="reviewButton" class="bg-gray-600 text-white px-4 py-2 rounded hover:bg-gray-700">Review Answers</button>
+                    <button id="finishButton" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">Finish</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="../js/quiz.js" type="module"></script>
+</body>
+</html>
