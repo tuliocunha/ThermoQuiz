@@ -3,21 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Termo Quiz</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Quiz</title>
 </head>
 <body>
-    <header>
-        <h1>HVAC Quiz</h1>
-    </header>
-    <main>
-        <div id="quiz-container">
-            <h2>Question <span id="question-number">1</span></h2>
-            <p id="question-text"></p>
-            <div id="answers"></div>
-            <button id="next-btn">Next</button>
-        </div>
-    </main>
-    <script src="../js/quiz.js"></script>
+    <div id="quiz-container">
+        <h1 id="question-text"></h1>
+        <img id="question-image" src="" alt="" style="display:none;">
+        
+        <div id="alternatives"></div>
+        <div id="feedback"></div>
+        <div id="tip-right" style="display:none;"></div>
+        <div id="comments" style="display:none;"></div>
+        
+        <button id="next-button" style="display:none;">Next</button>
+        <button id="back-button">Back</button>
+        <button id="pause-button">Pause</button>
+        <button id="stop-button">Stop</button>
+        <button id="exit-button">Exit</button>
+    </div>
+
+    <div id="settings-screen" style="display:none;">
+        <h2>Settings</h2>
+        <button id="play-button">Play</button>
+        <button id="exit-settings">Exit</button>
+    </div>
+
+    <script src="js/quiz.js"></script>
 </body>
 </html>
