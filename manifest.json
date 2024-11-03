@@ -1,8 +1,8 @@
 {
     "manifest_version": 2,
-    "name": "HVAC Quiz",
+    "name": "termo Quiz",
     "version": "1.0",
-    "description": "A quiz application to test HVAC knowledge.",
+    "description": "A quiz application to test HVAC and refrigeration knowledge.",
     "browser_action": {
         "default_popup": "html/index.html"
     },
