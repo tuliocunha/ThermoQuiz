@@ -3,17 +3,118 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Termo Quiz - Select Quiz</title>
-    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Select Quiz</title>
+    <script src="js/xlsx.full.min.js"></script>
 </head>
 <body>
-    <header>
-        <h1>Select a Quiz</h1>
-    </header>
-    <main>
-        <button onclick="startQuiz('quiz1')">Quiz 1</button>
-        <button onclick="startQuiz('quiz2')">Quiz 2</button>
-    </main>
-    <script src="../js/quiz_selection.js"></script>
+    <h1 id="quiz-selection-header">Select a Quiz</h1>
+    
+    <label id="category-label" for="category-select">Select Category:</label>
+    <select id="category-select" onchange="loadUnits()">
+        <option value="">-- Select a Category --</option>
+    </select>
+
+    <label id="unit-label" for="unit-select">Select Unit:</label>
+    <select id="unit-select" onchange="loadTopics()">
+        <option value="">-- Select a Unit --</option>
+    </select>
+
+    <label id="topic-label" for="topic-select">Select Topic:</label>
+    <select id="topic-select">
+        <option value="">-- Select a Topic --</option>
+    </select>
+
+    <button id="start-quiz" disabled onclick="startQuiz()">Start Quiz</button>
+
+    <div>
+        <label for="language-select">Select Language:</label>
+        <button onclick="changeLanguage('en')">English</button>
+        <button onclick="changeLanguage('es')">Español</button>
+        <button onclick="changeLanguage('por')">Português</button>
+    </div>
+
+    <script src="js/localization.js"></script>
+    <script src="js/loadUnits.js"></script>
+    <script src="js/loadTopics.js"></script>
+    <script>
+        let currentLanguage = 'en'; // Default language
+        let translations = {};
+        const categories = [];
+        const units = [];
+        const topics = [];
+
+        // Load translations from Excel file
+        function loadTranslations() {
+            readExcelFile('data/quiz_translation.xlsx', (data) => {
+                data.forEach(row => {
+                    translations[row.id] = {
+                        en: row.en,
+                        es: row.es,
+                        por: row.por
+                    };
+                });
+                updateUI();
+            });
+        }
+
+        function loadCategories() {
+            readExcelFile('data/categories.xlsx', (data) => {
+                categories.push(...data);
+                populateCategorySelect();
+            });
+        }
+
+        function populateCategorySelect() {
+            const categorySelect = document.getElementById('category-select');
+            categories.forEach(category => {
+                const option = document.createElement('option');
+                option.value = category.id;
+                option.textContent = category.name;
+                categorySelect.appendChild(option);
+            });
+        }
+
+        function startQuiz() {
+            const selectedTopicId = document.getElementById('topic-select').value;
+            console.log(`Starting quiz on topic ID: ${selectedTopicId}`);
+            // Logic to start the quiz with the selected topic
+        }
+
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            updateUI();
+        }
+
+        function updateUI() {
+            document.getElementById('quiz-selection-header').textContent = translations['title'][currentLanguage];
+            document.getElementById('category-label').textContent = translations['category_label'][currentLanguage];
+            document.getElementById('unit-label').textContent = translations['unit_label'][currentLanguage];
+            document.getElementById('topic-label').textContent = translations['topic_label'][currentLanguage];
+            document.getElementById('start-quiz').textContent = translations['start_quiz'][currentLanguage];
+        }
+
+        function readExcelFile(file, callback) {
+            fetch(file)
+                .then(response => response.arrayBuffer())
+                .then(data => {
+                    const workbook = XLSX.read(data);
+                    const jsonData = [];
+                    workbook.SheetNames.forEach(sheetName => {
+                        const sheet = workbook.Sheets[sheetName];
+                        const sheetData = XLSX.utils.sheet_to_json(sheet);
+                        jsonData.push(...sheetData);
+                    });
+                    callback(jsonData);
+                })
+                .catch(error => console.error("Error reading Excel file:", error));
+        }
+
+        // Initialize on page load
+        window.onload = () => {
+            loadTranslations();
+            loadCategories();
+        };
+    </script>
 </body>
 </html>
