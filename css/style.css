@@ -5,19 +5,18 @@ body {
     background-color: #f4f4f4;
 }
 
-header {
-    background: #007BFF;
-    color: white;
-    padding: 10px 0;
-    text-align: center;
+h1 {
+    color: #333;
 }
 
 nav a {
-    margin: 0 15px;
-    color: white;
+    margin-right: 15px;
     text-decoration: none;
+    color: #0066cc;
 }
 
-main {
-    padding: 20px;
+select, button {
+    margin-top: 10px;
+    margin-bottom: 20px;
+    padding: 10px;
 }
